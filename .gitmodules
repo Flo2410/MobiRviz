@@ -1,3 +1,6 @@
 [submodule "src/mobictl_cpp"]
 	path = src/mobictl_cpp
 	url = https://github.com/Flo2410/mobictl_cpp.git
+[submodule "src/rplidar_ros"]
+	path = src/rplidar_ros
+	url = https://github.com/allenh1/rplidar_ros.git
