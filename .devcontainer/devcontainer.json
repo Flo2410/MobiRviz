@@ -1,0 +1,48 @@
+{
+  "image": "ghcr.io/flo2410/ros2-docker:latest",
+  "remoteUser": "ros",
+  "runArgs": [
+    // "-v $PWD:/pwd${workspaceFolderBasename} --cap-add=SYS_PTRACE",
+    // "-w ${containerWorkspaceFolder}",
+		"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+    "--security-opt=apparmor:unconfined",
+    "--security-opt=seccomp:unconfined",
+    "--ipc=host",
+    "--network=host",
+    "--name=ros2-docker",
+    "--hostname=ros2-docker",
+    "--ipc=host"
+    // "--device=/dev/ttyACM1"
+	],
+  "mounts": [
+    "source=/home/florian/syncthing/Development/ros/ros2-docker/home/.zsh_history,target=/home/ros/.zsh_history,type=bind,consistency=cached"
+  ],
+  "containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI try ":0" for windows
+		"WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
+		"XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+		"PULSE_SERVER": "${localEnv:PULSE_SERVER}",
+		"LIBGL_ALWAYS_SOFTWARE": "1", // Needed for software rendering of opengl
+    "PYTHONWARNINGS": "ignore:setup.py install is deprecated::setuptools.command.install", // disabel deprecation warning
+    "ROS_DOMAIN": "${localEnv:ROS_DOMAIN}"
+	},
+  "customizations": {
+		"vscode": {
+			"extensions": [
+				"althack.ament-task-provider",
+				"betwo.b2-catkin-tools",
+				"DotJoshJohnson.xml",
+				"ms-azuretools.vscode-docker",
+				"ms-iot.vscode-ros",
+				"ms-python.python",
+				"ms-vscode.cpptools",
+				"redhat.vscode-yaml",
+				"smilerobotics.urdf",
+				"streetsidesoftware.code-spell-checker",
+				"twxs.cmake",
+				"yzhang.markdown-all-in-one",
+				"zachflower.uncrustify"
+			]
+		}
+	}
+}
