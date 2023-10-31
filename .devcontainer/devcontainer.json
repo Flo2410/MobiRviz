@@ -24,7 +24,8 @@
 		"PULSE_SERVER": "${localEnv:PULSE_SERVER}",
 		"LIBGL_ALWAYS_SOFTWARE": "1", // Needed for software rendering of opengl
     "PYTHONWARNINGS": "ignore:setup.py install is deprecated::setuptools.command.install", // disabel deprecation warning
-    "ROS_DOMAIN": "${localEnv:ROS_DOMAIN}"
+    // "ROS_DOMAIN": "${localEnv:ROS_DOMAIN}"
+    "ROS_DOMAIN": "59"
 	},
   "customizations": {
 		"vscode": {
@@ -41,7 +42,8 @@
 				"streetsidesoftware.code-spell-checker",
 				"twxs.cmake",
 				"yzhang.markdown-all-in-one",
-				"zachflower.uncrustify"
+				"zachflower.uncrustify",
+				"ms-vscode.cmake-tools"
 			]
 		}
 	}
