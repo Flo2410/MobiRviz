@@ -8,7 +8,7 @@ Visualization Manager:
     - Class: rviz_default_plugins/Grid
       Name: Grid
       Value: true
-    - Alpha: 0.8
+    - Alpha: 1.0
       Class: rviz_default_plugins/RobotModel
       Description Topic:
         Value: /robot_description
@@ -31,5 +31,5 @@ Visualization Manager:
       Value: Orbit (rviz)
       Yaw: 5.5
 Window Geometry:
-  Height: 800
-  Width: 1200
+  Height: 1600
+  Width: 2400
