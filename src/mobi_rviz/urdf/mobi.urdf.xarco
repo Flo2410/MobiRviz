@@ -163,15 +163,15 @@
   <!-- ========================================================================================================================================== -->
   <!-- Sensors  -->
 
-  <link name="laser">
-    <visual>
+  <link name="lidar">
+    <!-- <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
-    </visual>
+    </visual> -->
   </link>
 
-  <joint name="laser_joint" type="fixed">
+  <joint name="lidar_joint" type="fixed">
     <parent link="top_plate"/>
-    <child link="laser"/>
+    <child link="lidar"/>
     <origin rpy="0 0 ${pi/2}" xyz="0 0 0.045"/>
   </joint>
 
