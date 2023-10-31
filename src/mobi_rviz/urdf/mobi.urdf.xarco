@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mobi">
 
+  <!-- ========================================================================================================================================== -->
   <!-- Variables -->
+
   <xacro:property name="chassis_width" value="0.2" />
   <xacro:property name="chassis_length" value="0.3" />
   <xacro:property name="chassis_height" value="0.08" />
@@ -21,8 +23,7 @@
   <!-- wheel offset from the chassis center -->
   <xacro:property name="wheel_offset_z" value="-0.025" />
 
-
-
+  <!-- ========================================================================================================================================== -->
   <!-- Colors -->
 
   <material name="blue">
@@ -37,8 +38,9 @@
     <color rgba="0.8 0.8 0.8 1"/>
   </material>
 
-
+  <!-- ========================================================================================================================================== -->
   <!-- Gemoetry -->
+
   <link name="base_link">
   </link>
 
@@ -91,7 +93,7 @@
     <origin rpy="0 0 0" xyz="0 0 ${top_plate_distance}"/>
   </joint>
 
-
+  <!-- ========================================================================================================================================== -->
   <!-- Wheels -->
 
   <link name="front_right_wheel">
@@ -156,6 +158,21 @@
     <child link="rear_left_wheel"/>
     <origin xyz="${-(chassis_width / 2 + wheel_thickness / 2 + wheel_gap)} ${-wheel_distance / 2} ${wheel_offset_z}" rpy="${-pi/2} 0 ${pi/2}"/>
     <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- ========================================================================================================================================== -->
+  <!-- Sensors  -->
+
+  <link name="laser">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="laser_joint" type="fixed">
+    <parent link="top_plate"/>
+    <child link="laser"/>
+    <origin rpy="0 0 ${pi/2}" xyz="0 0 0.045"/>
   </joint>
 
 </robot>
