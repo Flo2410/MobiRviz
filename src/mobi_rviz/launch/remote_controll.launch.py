@@ -1,18 +1,17 @@
 import launch
-from launch.substitutions import LaunchConfiguration
-from launch_ros.actions import Node 
+from launch.substitutions import LaunchConfiguration, Command
+from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
-import os
+from launch_ros.descriptions import ParameterValue
+from os import path
 
 
 def generate_launch_description():
     pkg_share = FindPackageShare(package="mobi_rviz").find("mobi_rviz")
-    default_rviz_config_path = os.path.join(pkg_share, "rviz/mobi.rviz")
-    urdf = os.path.join(pkg_share, "urdf/mobi.urdf")
+    default_rviz_config_path = path.join(pkg_share, "rviz/mobi.rviz")
+    urdf = path.join(pkg_share, "urdf/mobi.urdf.xarco")
 
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
-    with open(urdf, 'r') as infp:
-        robot_desc = infp.read()
+    use_sim_time = LaunchConfiguration("use_sim_time", default="false")
 
     # Run rviz2
     rviz_node = Node(
@@ -24,18 +23,18 @@ def generate_launch_description():
     )
 
     robot_state_publisher = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='robot_state_publisher',
-        output='screen',
-        parameters=[{'use_sim_time': use_sim_time, 'robot_description': robot_desc}],
-        arguments=[urdf]
+        package="robot_state_publisher",
+        executable="robot_state_publisher",
+        name="robot_state_publisher",
+        output="screen",
+        parameters=[{"use_sim_time": use_sim_time, "robot_description": ParameterValue(Command(["xacro ", str(urdf)]), value_type=str)}],
+        arguments=[urdf],
     )
 
     joint_state_publisher = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        name='joint_state_publisher',
+        package="joint_state_publisher",
+        executable="joint_state_publisher",
+        name="joint_state_publisher",
     )
 
     # ros2 run teleop_twist_keyboard teleop_twist_keyboard
@@ -44,7 +43,7 @@ def generate_launch_description():
     return launch.LaunchDescription(
         [
             launch.actions.DeclareLaunchArgument(name="rvizconfig", default_value=default_rviz_config_path, description="Absolute path to rviz config file"),
-            launch.actions.DeclareLaunchArgument('use_sim_time', default_value='false', description='Use simulation (Gazebo) clock if true'),
+            launch.actions.DeclareLaunchArgument("use_sim_time", default_value="false", description="Use simulation (Gazebo) clock if true"),
             rviz_node,
             robot_state_publisher,
             joint_state_publisher
