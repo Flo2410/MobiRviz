@@ -7,23 +7,15 @@ from launch_ros.actions import Node
 def generate_launch_description():
     pkg_share = FindPackageShare("mobi_rviz")
     joy_params = PathJoinSubstitution([pkg_share, "config/joystick.yaml"])
+    lidar_params = PathJoinSubstitution([pkg_share, "config/lidar.yaml"])
 
     # Lidar
     lidar_node = Node(
-        name="rplidar_composition",
+        name="rplidar",
         package="rplidar_ros",
         executable="rplidar_composition",
         output="screen",
-        parameters=[
-            {
-                "serial_port": "/dev/ttyUSB0",
-                "serial_baudrate": 115200,  # A1 / A2
-                # 'serial_baudrate': 256000, # A3
-                "frame_id": "laser",
-                "inverted": False,
-                "angle_compensate": True,
-            }
-        ],
+        parameters=[lidar_params],
     )
 
     # mobictl
