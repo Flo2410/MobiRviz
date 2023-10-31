@@ -1,13 +1,54 @@
 Panels:
+# URDF 
   - Class: rviz_common/Displays
     Name: Displays
+    # Property Tree Widget:
+    #   Expanded:
+    #     - /Global Options1
+    #     - /Status1
+    #     - /RPLidarLaserScan1
+    #   Splitter Ratio: 0.5
+    Tree Height: 397
+
   - Class: rviz_common/Views
+    Expanded:
+      - /Current View1
     Name: Views
+    Splitter Ratio: 0.5
+    
+# LiDAR
+ 
+  - Class: rviz_common/Selection
+    Name: Selection
+  - Class: rviz_common/Tool Properties
+    # Expanded:
+    #   - /2D Nav Goal1
+    #   - /Publish Point1
+    # Name: Tool Properties
+    Splitter Ratio: 0.5886790156364441
+
+
 Visualization Manager:
   Displays:
-    - Class: rviz_default_plugins/Grid
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz_default_plugins/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
       Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
       Value: true
+
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Description Topic:
@@ -17,11 +58,64 @@ Visualization Manager:
     - Class: rviz_default_plugins/TF
       Name: TF
       Value: true
+
+# LiDAR
+    
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 0
+        Min Value: 0
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz_default_plugins/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: AxisColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: RPLidarLaserScan
+      Position Transformer: XYZ
+      Queue Size: 1000
+      Selectable: true
+      Size (Pixels): 5
+      Size (m): 0.029999999329447746
+      Style: Points
+      Topic: /scan
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+
   Global Options:
     Fixed Frame: base_link
+    Frame Rate: 30
+
   Tools:
     - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+      Line color: 128; 128; 0
+    - Class: rviz_default_plugins/SetInitialPose
+      Topic: /initialpose
+    - Class: rviz_default_plugins/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz_default_plugins/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  
   Value: true
+  
+  Transformation:
+    Current:
+      Class: rviz_default_plugins/TF
+
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
@@ -30,6 +124,9 @@ Visualization Manager:
       Pitch: 0.33
       Value: Orbit (rviz)
       Yaw: 5.5
+
+# LiDAR
+  
 Window Geometry:
-  Height: 800
-  Width: 1200
+  Height: 1600
+  Width: 2400
