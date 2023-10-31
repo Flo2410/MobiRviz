@@ -1,14 +1,15 @@
-import launch
-from launch.substitutions import LaunchConfiguration
-import launch_ros
-import os
+from launch import LaunchDescription
+from launch.substitutions import PathJoinSubstitution
+from launch_ros.substitutions import FindPackageShare
+from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    pkg_share = launch_ros.substitutions.FindPackageShare(package="mobi_rviz").find("mobi_rviz")
-    default_rviz_config_path = os.path.join(pkg_share, "rviz/rplidar.rviz")
+    pkg_share = FindPackageShare("mobi_rviz")
+    joy_params = PathJoinSubstitution([pkg_share, "config/joystick.yaml"])
 
-    lidar_node = launch_ros.actions.Node(
+    # Lidar
+    lidar_node = Node(
         name="rplidar_composition",
         package="rplidar_ros",
         executable="rplidar_composition",
@@ -25,17 +26,20 @@ def generate_launch_description():
         ],
     )
 
-    mobictl = launch_ros.actions.Node(
-        package="mobictl_cpp",
-        executable="mobictl",
-        name="mobictl",
-        parameters=["port", "/dev/ttyACM0"]
-    )
+    # mobictl
+    mobictl = Node(package="mobictl_cpp", executable="mobictl", name="mobictl", parameters=["port", "/dev/ttyACM0"])
 
-    return launch.LaunchDescription(
+    # gamepad
+    joy_node = Node(package="joy", executable="joy_node", parameters=[joy_params])
+
+    # telepo (/joy -> /cmd_vel)
+    teleop_node = Node(package="teleop_twist_joy", executable="teleop_node", name="teleop_node", parameters=[joy_params])
+
+    return LaunchDescription(
         [
-            launch.actions.DeclareLaunchArgument(name="rvizconfig", default_value=default_rviz_config_path, description="Absolute path to rviz config file"),
             lidar_node,
-            mobictl
+            mobictl,
+            joy_node,
+            teleop_node,
         ]
     )
