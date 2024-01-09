@@ -9,7 +9,7 @@
     "--security-opt=seccomp:unconfined",
     "--ipc=host",
     "--network=host",
-    "--name=ros2-docker",
+    "--name=ros2-docker-${localWorkspaceFolderBasename}",
     "--hostname=ros2-docker",
     "--ipc=host"
     // "--device=/dev/ttyACM1"
