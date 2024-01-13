@@ -2,14 +2,15 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
+from os import path
 
 
 def generate_launch_description():
     ld = LaunchDescription()
 
-    mobi_rviz_path = FindPackageShare("mobi_rviz")
-    default_model_path = PathJoinSubstitution([mobi_rviz_path, "urdf/mobi.urdf.xarco"])
-    default_rviz_config_path = PathJoinSubstitution([mobi_rviz_path, "rviz/urdf.rviz"])
+    mobi_rviz_path = FindPackageShare("mobi_rviz").find("mobi_rviz")
+    default_model_path = path.join(mobi_rviz_path, "urdf/mobi.urdf.xarco")
+    default_rviz_config_path = path.join(mobi_rviz_path, "rviz/urdf.rviz")
 
     # These parameters are maintained for backwards compatibility
     gui_arg = DeclareLaunchArgument(name="gui", default_value="true", choices=["true", "false"], description="Flag to enable joint_state_publisher_gui")
