@@ -37,6 +37,11 @@ def generate_launch_description():
         name="joint_state_publisher",
     )
 
+    rosboard_node = Node(
+        package="rosboard",
+        executable="rosboard_node"
+    )
+
     # ros2 run teleop_twist_keyboard teleop_twist_keyboard
     # teleop_key_node = Node(package="teleop_twist_keyboard", executable="teleop_twist_keyboard", name="teleop_twist_keyboard")
 
@@ -46,7 +51,8 @@ def generate_launch_description():
             launch.actions.DeclareLaunchArgument("use_sim_time", default_value="false", description="Use simulation (Gazebo) clock if true"),
             rviz_node,
             robot_state_publisher,
-            joint_state_publisher
+            joint_state_publisher,
+            rosboard_node
             # teleop_key_node
         ]
     )
