@@ -11,8 +11,10 @@
     "--network=host",
     "--name=ros2-docker-${localWorkspaceFolderBasename}",
     "--hostname=ros2-docker",
-    "--ipc=host"
-    // "--device=/dev/ttyACM1"
+    // "--device=/dev/stm32usb",
+    // "--device=/dev/stm32stlink"
+    // "--privileged"
+    // "--group-add video"
 	],
   "mounts": [
     "source=/home/florian/syncthing/Development/ros/ros2-docker/home/.zsh_history,target=/home/ros/.zsh_history,type=bind,consistency=cached"
