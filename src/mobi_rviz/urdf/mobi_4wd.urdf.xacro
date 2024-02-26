@@ -1,0 +1,343 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mobi">
+
+  <xacro:include filename="$(find mobi_rviz)/urdf/macro.materials.urdf.xacro" />
+  <xacro:include filename="$(find mobi_rviz)/urdf/macro.tower.urdf.xacro" />
+  <xacro:materials_config />
+
+  <link name="base_link">
+  </link>
+
+  <link name="chassis_bottom_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <!-- <mesh filename="package://mobi_rviz/meshes/01_chassis_bottom1.stl" scale="0.001 0.001 0.001"/> -->
+        <mesh filename="file:///$(find mobi_rviz)/meshes/01_chassis_bottom1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="yellow"/>
+    </visual>
+
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.04" />
+      <geometry>
+        <box size="0.285 0.198 0.08"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="10"/>
+      <origin rpy="0 0 0" xyz="0 0 0.04"/>
+      <inertia ixx="0.03267" ixy="0" ixz="0" iyy="0.067688" iyz="0" izz="0.100358"/>
+      <!-- <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>-->
+    </inertial>
+
+  </link>
+
+  <link name="chassis_top_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <!-- <mesh filename="package://mobi_rviz/meshes/02_chassis_top1.stl" scale="0.001 0.001 0.001"/> -->
+        <mesh filename="file:///$(find mobi_rviz)/meshes/02_chassis_top1.stl" scale="0.001 0.001 0.001" />
+      </geometry>
+      <material name="light_gray"/>
+    </visual>
+    <!-- 
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0" />
+      <geometry>
+        <box size="0.285 0.198 0.003"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="1.1"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.013538" ixy="0" ixz="0" iyy="0.006534" iyz="0" izz="0.020072"/>
+    </inertial>
+-->
+  </link>
+
+  <xacro:macro name="wheel" params="rim_name screw_name tire_name">
+
+    <link name="${rim_name}">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!--<mesh filename="package://mobi_rviz/meshes/09_rim.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/09_rim.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="light_gray"/>
+      </visual>
+
+    </link>
+
+    <link name="${screw_name}">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/10_screw.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/10_screw.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="yellow"/>
+      </visual>
+
+    </link>
+
+    <link name="${tire_name}">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/11_tire.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/11_tire.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="dark_gray"/>
+      </visual>
+
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0.025" />
+        <geometry>
+          <cylinder radius="0.05" length="0.05"/>
+        </geometry>
+      </collision>
+
+      <inertial>
+        <mass value="0.2"/>
+        <origin rpy="0 0 0" xyz="0 0 0.025"/>
+        <inertia ixx="0.000167" ixy="0" ixz="0" iyy="0.000167" iyz="0" izz="0.00025"/>
+      </inertial>
+
+    </link>
+
+
+    <joint name="${rim_name}_to_${screw_name}_joint" type="fixed">
+      <origin xyz="0 0 0.042" rpy="0 0 0"/>
+      <parent link="${rim_name}"/>
+      <child link="${screw_name}"/>
+    </joint>
+
+    <joint name="${rim_name}_to_${tire_name}_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${rim_name}"/>
+      <child link="${tire_name}"/>
+    </joint>
+
+
+  </xacro:macro>
+
+  <xacro:wheel rim_name="rim_1_link" screw_name="screw_1_link" tire_name="tire_1_link"/>
+  <xacro:wheel rim_name="rim_2_link" screw_name="screw_2_link" tire_name="tire_2_link"/>
+  <xacro:wheel rim_name="rim_3_link" screw_name="screw_3_link" tire_name="tire_3_link"/>
+  <xacro:wheel rim_name="rim_4_link" screw_name="screw_4_link" tire_name="tire_4_link"/>
+
+  <joint name="base_link_to_chassis_bottom_link_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="chassis_bottom_link"/>
+  </joint>
+
+  <joint name="chassis_bottom_link_to_chassis_top_link_joint" type="fixed">
+    <origin xyz="0 0 0.08" rpy="0 0 0"/>
+    <parent link="chassis_bottom_link"/>
+    <child link="chassis_top_link"/>
+  </joint>
+
+  <joint name="chassis_bottom_link_to_rim_1_link_joint" type="continuous">
+    <origin xyz="0.0975 0.107 0.023" rpy="1.5708 0 3.1415"/>
+    <parent link="chassis_bottom_link"/>
+    <child link="rim_1_link"/>
+    <axis xyz="0 0 -1"/>
+
+  </joint>
+
+  <joint name="chassis_bottom_link_to_rim_3_link_joint" type="continuous">
+    <origin xyz="0.0975 -0.107 0.023" rpy="1.5708 0 0"/>
+    <parent link="chassis_bottom_link"/>
+    <child link="rim_3_link"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="chassis_bottom_link_to_rim_2_link_joint" type="continuous">
+    <origin xyz="-0.0975 0.107 0.023" rpy="1.5708 0 3.1415"/>
+    <parent link="chassis_bottom_link"/>
+    <child link="rim_2_link"/>
+    <axis xyz="0 0 -1"/>
+  </joint>
+
+  <joint name="chassis_bottom_link_to_rim_4_link_joint" type="continuous">
+    <origin xyz="-0.0975 -0.107 0.023" rpy="1.5708 0 0"/>
+    <parent link="chassis_bottom_link"/>
+    <child link="rim_4_link"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <xacro:tower />
+
+  <gazebo reference="chassis_bottom_link">
+    <material>Gazebo/Yellow</material>
+
+  </gazebo>
+
+  <gazebo reference="chassis_top_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+  <!--
+<gazebo reference="rim_1_link">
+    <material>Gazebo/Grey</material>
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>1000</mu1>
+    <mu2>100</mu2>
+</gazebo>
+
+<gazebo reference="screw_1_link">
+    <material>Gazebo/White</material>
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>1000</mu1>
+    <mu2>100</mu2>
+</gazebo>
+-->
+  <gazebo reference="tire_1_link">
+    <material>Gazebo/FlatBlack</material>
+    <kp>10000000.0</kp>
+    <kd>10000000.0</kd>
+    <mu1>200.0</mu1>
+    <mu2>100.0</mu2>
+    <!--<fdir1 value="1 0 0"/>-->
+  </gazebo>
+  <!--
+<gazebo reference="rim_2_link">
+    <material>Gazebo/Grey</material>
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>1000</mu1>
+    <mu2>100</mu2>
+</gazebo>
+
+<gazebo reference="screw_2_link">
+    <material>Gazebo/White</material>
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>1000</mu1>
+    <mu2>100</mu2>
+</gazebo>
+-->
+  <gazebo reference="tire_2_link">
+    <material>Gazebo/FlatBlack</material>
+    <kp>10000000.0</kp>
+    <kd>10000000.0</kd>
+    <mu1>200.0</mu1>
+    <mu2>100.0</mu2>
+    <!--<fdir1 value="1 0 0"/>-->
+  </gazebo>
+  <!--
+<gazebo reference="rim_3_link">
+    <material>Gazebo/Grey</material>
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>1000</mu1>
+    <mu2>100</mu2>
+</gazebo>
+
+<gazebo reference="screw_3_link">
+    <material>Gazebo/White</material>
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>1000</mu1>
+    <mu2>100</mu2>
+</gazebo>
+-->
+  <gazebo reference="tire_3_link">
+    <material>Gazebo/FlatBlack</material>
+    <kp>10000000.0</kp>
+    <kd>10000000.0</kd>
+    <mu1>200.0</mu1>
+    <mu2>100.0</mu2>
+    <!--<fdir1 value="1 0 0"/>-->
+  </gazebo>
+  <!--
+<gazebo reference="rim_4_link">
+    <material>Gazebo/Grey</material>
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>1000</mu1>
+    <mu2>100</mu2>
+</gazebo>
+
+<gazebo reference="screw_4_link">
+    <material>Gazebo/White</material>
+    <kp>1000000000000000000000000000.0</kp>
+    <kd>1000000000000000000000000000.0</kd>
+    <mu1>1000</mu1>
+    <mu2>100</mu2>
+</gazebo>
+-->
+  <gazebo reference="tire_4_link">
+    <material>Gazebo/FlatBlack</material>
+    <kp>10000000.0</kp>
+    <kd>10000000.0</kd>
+    <mu1>200.0</mu1>
+    <mu2>100.0</mu2>
+    <!--<fdir1 value="1 0 0"/>-->
+  </gazebo>
+
+  <gazebo>
+    <plugin name="mobi_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
+      <ros>
+        <remapping>~/out:=joint_states</remapping>
+      </ros>
+      <update_rate>50</update_rate>
+      <joint_name>chassis_bottom_link_to_rim_1_link_joint</joint_name>
+      <joint_name>chassis_bottom_link_to_rim_2_link_joint</joint_name>
+
+      <joint_name>chassis_bottom_link_to_rim_3_link_joint</joint_name>
+      <joint_name>chassis_bottom_link_to_rim_4_link_joint</joint_name>
+
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <ros>
+        <!-- Set namespace -->
+        <namespace>/mobi</namespace>
+
+        <!-- Remap default topics -->
+        <remapping>cmd_vel:=cmd_vel</remapping>
+        <remapping>odom:=odom</remapping>
+      </ros>
+
+      <!-- Update rate -->
+      <update_rate>50</update_rate>
+
+      <!-- Number of wheel pairs -->
+      <num_wheel_pairs>2</num_wheel_pairs>
+      <!-- wheels -->
+      <left_joint>chassis_bottom_link_to_rim_1_link_joint</left_joint>
+      <right_joint>chassis_bottom_link_to_rim_3_link_joint</right_joint>
+      <left_joint>chassis_bottom_link_to_rim_2_link_joint</left_joint>
+      <right_joint>chassis_bottom_link_to_rim_4_link_joint</right_joint>
+
+
+
+      <!-- kinematics -->
+      <wheel_separation>0.214</wheel_separation>
+      <wheel_diameter>0.100</wheel_diameter>
+
+      <!-- limits -->
+      <max_wheel_torque>5.0</max_wheel_torque>
+      <max_wheel_acceleration>0.5</max_wheel_acceleration>
+
+      <!-- output -->
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>true</publish_wheel_tf>
+
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+    </plugin>
+  </gazebo>
+
+</robot>

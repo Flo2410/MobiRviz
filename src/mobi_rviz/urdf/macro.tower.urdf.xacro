@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Hier befinden sich alle 3D Verknüpfungen des oberen Teils vom Mobi  -->
+
+  <xacro:macro name="tower">
+
+    <link name="housing_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/03_housing.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/03_housing.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="dark_gray"/>
+      </visual>
+    </link>
+
+    <link name="sonic1_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="light_gray"/>
+      </visual>
+    </link>
+
+    <link name="sonic2_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="light_gray"/>
+      </visual>
+    </link>
+
+    <link name="sonic3_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="light_gray"/>
+      </visual>
+    </link>
+
+    <link name="sonic4_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="light_gray"/>
+      </visual>
+    </link>
+
+    <link name="sonic5_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="light_gray"/>
+      </visual>
+    </link>
+
+    <link name="sonic6_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/04_ultrasonic.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="light_gray"/>
+      </visual>
+    </link>
+
+    <link name="raspi_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/05_raspi.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/05_raspi.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="light_gray"/>
+      </visual>
+    </link>
+
+    <link name="tower_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/06_tower.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/06_tower.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="gray"/>
+      </visual>
+    </link>
+
+    <link name="lidar_link">
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <geometry>
+          <!-- <mesh filename="package://mobi_rviz/meshes/07_lidar.stl" scale="0.001 0.001 0.001"/> -->
+          <mesh filename="file:///$(find mobi_rviz)/meshes/07_lidar.stl" scale="0.001 0.001 0.001" />
+        </geometry>
+        <material name="dark_gray"/>
+      </visual>
+    </link>
+
+    <joint name="chassis_top_link_to_housing_link_joint" type="fixed">
+      <origin xyz="0 0 0.003" rpy="0 0 0"/>
+      <parent link="chassis_top_link"/>
+      <child link="housing_link"/>
+    </joint>
+
+    <joint name="housing_link_to_sonic1_link_joint" type="fixed">
+      <origin xyz="0 0.0885 0.047" rpy="1.5708 0 0"/>
+      <parent link="housing_link"/>
+      <child link="sonic1_link"/>
+    </joint>
+
+    <joint name="housing_link_to_sonic2_link_joint" type="fixed">
+      <origin xyz="0 -0.0885 0.047" rpy="-1.5708 0 0"/>
+      <parent link="housing_link"/>
+      <child link="sonic2_link"/>
+    </joint>
+
+    <joint name="housing_link_to_sonic3_link_joint" type="fixed">
+      <origin xyz="0.092 0.04175 0.047" rpy="1.5708 0 1.8151"/>
+      <parent link="housing_link"/>
+      <child link="sonic3_link"/>
+    </joint>
+
+    <joint name="housing_link_to_sonic4_link_joint" type="fixed">
+      <origin xyz="0.092 -0.04175 0.047" rpy="1.5708 0 1.3264"/>
+      <parent link="housing_link"/>
+      <child link="sonic4_link"/>
+    </joint>
+
+    <joint name="housing_link_to_sonic5_link_joint" type="fixed">
+      <origin xyz="-0.092 0.04175 0.047" rpy="1.5708 0 -1.8151"/>
+      <parent link="housing_link"/>
+      <child link="sonic5_link"/>
+    </joint>
+
+    <joint name="housing_link_to_sonic6_link_joint" type="fixed">
+      <origin xyz="-0.092 -0.04175 0.047" rpy="1.5708 0 -1.3264"/>
+      <parent link="housing_link"/>
+      <child link="sonic6_link"/>
+    </joint>
+
+    <joint name="housing_link_to_raspi_link_joint" type="fixed">
+      <origin xyz="0 0 0.0715" rpy="0 0 0"/>
+      <parent link="housing_link"/>
+      <child link="raspi_link"/>
+    </joint>
+
+    <joint name="housing_link_to_tower_link_joint" type="fixed">
+      <origin xyz="0 0 0.0715" rpy="0 0 0"/>
+      <parent link="housing_link"/>
+      <child link="tower_link"/>
+    </joint>
+
+    <joint name="tower_link_to_lidar_link_joint" type="fixed">
+      <origin xyz="0 0 0.0656" rpy="0 0 0"/>
+      <parent link="tower_link"/>
+      <child link="lidar_link"/>
+    </joint>
+
+  </xacro:macro>
+</robot>

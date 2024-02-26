@@ -9,7 +9,7 @@ from os import path
 def generate_launch_description():
     pkg_share = FindPackageShare(package="mobi_rviz").find("mobi_rviz")
     default_rviz_config_path = path.join(pkg_share, "rviz/mobi.rviz")
-    urdf = path.join(pkg_share, "urdf/mobi.urdf.xarco")
+    urdf = path.join(pkg_share, "urdf/mobi_4wd.urdf.xacro")
 
     use_sim_time = LaunchConfiguration("use_sim_time", default="false")
 

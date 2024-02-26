@@ -9,7 +9,7 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     mobi_rviz_path = FindPackageShare("mobi_rviz").find("mobi_rviz")
-    default_model_path = path.join(mobi_rviz_path, "urdf/mobi.urdf.xarco")
+    default_model_path = path.join(mobi_rviz_path, "urdf/mobi_4wd.urdf.xacro")
     default_rviz_config_path = path.join(mobi_rviz_path, "rviz/urdf.rviz")
 
     # These parameters are maintained for backwards compatibility
