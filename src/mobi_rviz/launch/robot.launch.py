@@ -18,9 +18,6 @@ def generate_launch_description():
         parameters=[lidar_params],
     )
 
-    # mobictl
-    mobictl = Node(package="mobictl_cpp", executable="mobictl", name="mobictl", parameters=["port", "/dev/ttyACM0"])
-
     # gamepad
     joy_node = Node(package="joy", executable="joy_node", parameters=[joy_params])
 
@@ -30,7 +27,6 @@ def generate_launch_description():
     return LaunchDescription(
         [
             lidar_node,
-            mobictl,
             joy_node,
             teleop_node,
         ]
