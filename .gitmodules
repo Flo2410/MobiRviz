@@ -7,3 +7,6 @@
 [submodule "src/ros2_usb_camera"]
 	path = src/ros2_usb_camera
 	url = https://github.com/klintan/ros2_usb_camera.git
+[submodule "src/mobi_interfaces"]
+	path = src/mobi_interfaces
+	url = git@github.com:FHWN-Robotik/mobi_interfaces.git
