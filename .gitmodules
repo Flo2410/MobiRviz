@@ -10,6 +10,3 @@
 [submodule "src/mobi_interfaces"]
 	path = src/mobi_interfaces
 	url = git@github.com:FHWN-Robotik/mobi_interfaces.git
-[submodule "src/micro_ros_setup"]
-	path = src/micro_ros_setup
-	url = https://github.com/micro-ROS/micro_ros_setup.git
