@@ -27,6 +27,7 @@ ament_python_install_package(${PROJECT_NAME})
 # Install Python executables
 install(PROGRAMS
   scripts/save_imu_calib.py
+  scripts/load_imu_calib.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
