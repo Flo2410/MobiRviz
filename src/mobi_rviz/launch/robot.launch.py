@@ -8,6 +8,7 @@ def generate_launch_description():
     pkg_share = FindPackageShare("mobi_rviz")
     joy_params = PathJoinSubstitution([pkg_share, "config/joystick.yaml"])
     lidar_params = PathJoinSubstitution([pkg_share, "config/lidar.yaml"])
+    ekf_params = PathJoinSubstitution([pkg_share, "config/ekf.yaml"])
     cam_params = PathJoinSubstitution([pkg_share, "config/cam.yaml"])
 
     # Lidar
@@ -45,12 +46,22 @@ def generate_launch_description():
         arguments=["serial", "--dev", "/dev/stm32usb"],
     )
 
+    # ekf
+    # ekf_node = Node(
+    #     package='robot_localization',
+    #     executable='ekf_node',
+    #     name='ekf_filter_node',
+    #     output='screen',
+    #     parameters=[ekf_params]
+    # )
+
     return LaunchDescription(
         [
             lidar_node,
             joy_node,
             teleop_node,
             micro_ros_agent,
+            # ekf_node,
             cam_node,
         ]
     )
