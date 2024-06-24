@@ -1,52 +1,54 @@
 {
   "image": "ghcr.io/flo2410/ros2-docker:latest",
-  "remoteUser": "ros",
+  // "remoteUser": "ros",
   "runArgs": [
     // "-v $PWD:/pwd${workspaceFolderBasename} --cap-add=SYS_PTRACE",
     // "-w ${containerWorkspaceFolder}",
-		"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+    "--volume=/tmp/.X11-unix:/tmp/.X11-unix",
     "--security-opt=apparmor:unconfined",
     "--security-opt=seccomp:unconfined",
     "--ipc=host",
     "--network=host",
     "--name=ros2-docker-${localWorkspaceFolderBasename}",
     "--hostname=ros2-docker",
-    // "--device=/dev/stm32usb",
+    "--device=/dev/stm32usb",
     // "--device=/dev/stm32stlink"
     // "--privileged"
-    // "--group-add video"
-	],
+  ],
   "mounts": [
-    "source=/home/florian/syncthing/Development/ros/ros2-docker/home/.zsh_history,target=/home/ros/.zsh_history,type=bind,consistency=cached"
+    "source=/home/florian/syncthing/Development/ros/ros2-docker/home/.zsh_history,target=/root/.zsh_history,type=bind,consistency=cached"
   ],
   "containerEnv": {
-		"DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI try ":0" for windows
-		"WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
-		"XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
-		"PULSE_SERVER": "${localEnv:PULSE_SERVER}",
-		"LIBGL_ALWAYS_SOFTWARE": "1", // Needed for software rendering of opengl
+    "DISPLAY": "${localEnv:DISPLAY}", // Needed for GUI try ":0" for windows
+    "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
+    "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+    "PULSE_SERVER": "${localEnv:PULSE_SERVER}",
+    "LIBGL_ALWAYS_SOFTWARE": "1", // Needed for software rendering of opengl
     "PYTHONWARNINGS": "ignore:setup.py install is deprecated::setuptools.command.install", // disabel deprecation warning
     // "ROS_DOMAIN": "${localEnv:ROS_DOMAIN}"
-    "ROS_DOMAIN_ID": "59"
-	},
+    "ROS_DOMAIN_ID": "59",
+    "XRCE_DOMAIN_ID_OVERRIDE": "59", // micro-ros agent domain id override
+    "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp"
+  },
   "customizations": {
-		"vscode": {
-			"extensions": [
-				"althack.ament-task-provider",
-				"betwo.b2-catkin-tools",
-				"DotJoshJohnson.xml",
-				"ms-azuretools.vscode-docker",
-				"ms-iot.vscode-ros",
-				"ms-python.python",
-				"ms-vscode.cpptools",
-				"redhat.vscode-yaml",
-				"smilerobotics.urdf",
-				"streetsidesoftware.code-spell-checker",
-				"twxs.cmake",
-				"yzhang.markdown-all-in-one",
-				"zachflower.uncrustify",
-				"ms-vscode.cmake-tools"
-			]
-		}
-	}
+    "vscode": {
+      "extensions": [
+        "althack.ament-task-provider",
+        "betwo.b2-catkin-tools",
+        "DotJoshJohnson.xml",
+        "ms-azuretools.vscode-docker",
+        "ms-iot.vscode-ros",
+        "ms-python.python",
+        "ms-vscode.cpptools",
+        "redhat.vscode-yaml",
+        "smilerobotics.urdf",
+        "streetsidesoftware.code-spell-checker",
+        "twxs.cmake",
+        "yzhang.markdown-all-in-one",
+        "zachflower.uncrustify",
+        "ms-vscode.cmake-tools",
+        "ms-python.black-formatter"
+      ]
+    }
+  }
 }
