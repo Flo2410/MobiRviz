@@ -1,5 +1,6 @@
 {
-  "image": "ghcr.io/flo2410/ros2-docker:latest",
+  // "image": "ghcr.io/flo2410/ros2-docker:latest",
+  "build": { "dockerfile": "Dockerfile" },
   // "remoteUser": "ros",
   "runArgs": [
     // "-v $PWD:/pwd${workspaceFolderBasename} --cap-add=SYS_PTRACE",
@@ -11,7 +12,7 @@
     "--network=host",
     "--name=ros2-docker-${localWorkspaceFolderBasename}",
     "--hostname=ros2-docker",
-    "--device=/dev/stm32usb",
+    // "--device=/dev/stm32usb",
     // "--device=/dev/stm32stlink"
     // "--privileged"
   ],
